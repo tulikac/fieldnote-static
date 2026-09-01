@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fieldnote helps you discover workshops, walks, and gatherings around your city.">
+  <title>Fieldnote | Local events worth leaving home for</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Fieldnote home">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span>Fieldnote</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a class="active" href="#discover">Discover</a>
+      <a href="#saved">Saved <span id="saved-count" class="nav-count">0</span></a>
+    </nav>
+
+    <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch theme">
+      <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Portland, Oregon</p>
+        <h1 id="page-title">Make room for something new.</h1>
+        <p class="intro-copy">A considered edit of workshops, walks, and gatherings happening around the city this week.</p>
+      </div>
+      <div class="date-stamp" aria-label="Current date">
+        <span id="current-month">SEP</span>
+        <strong id="current-day">01</strong>
+        <span id="current-weekday">TUE</span>
+      </div>
+    </section>
+
+    <section id="discover" class="discover-section" aria-labelledby="discover-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">This week</p>
+          <h2 id="discover-title">Things to do</h2>
+        </div>
+        <label class="search-field">
+          <span class="sr-only">Search events</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search-input" type="search" placeholder="Search by name or place" autocomplete="off">
+        </label>
+      </div>
+
+      <div id="category-filters" class="filter-row" aria-label="Filter by category">
+        <button class="filter-button active" type="button" data-category="all" aria-pressed="true">All</button>
+        <button class="filter-button" type="button" data-category="food" aria-pressed="false">Food</button>
+        <button class="filter-button" type="button" data-category="arts" aria-pressed="false">Arts</button>
+        <button class="filter-button" type="button" data-category="outdoors" aria-pressed="false">Outdoors</button>
+        <button class="filter-button" type="button" data-category="community" aria-pressed="false">Community</button>
+      </div>
+
+      <div id="event-grid" class="event-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden>
+        <h3>No events found</h3>
+        <p>Try another search or broaden your filters.</p>
+        <button id="clear-filters" class="text-button" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <section id="saved" class="saved-section" aria-labelledby="saved-title">
+      <div class="saved-copy">
+        <p class="eyebrow">Your shortlist</p>
+        <h2 id="saved-title">Saved for later</h2>
+        <p>Keep the possibilities you like in one place. Your list stays on this device.</p>
+      </div>
+      <div id="saved-list" class="saved-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>Fieldnote</span></a>
+    <p>Independent picks for curious people.</p>
+    <p>&copy; <span id="year"></span> Fieldnote</p>
+  </footer>
+
+  <div id="save-notice" class="save-notice" role="status" aria-live="polite" hidden>
+    <span id="save-notice-text"></span>
+    <a href="#saved">View saved</a>
+  </div>
+
+  <dialog id="event-dialog" aria-labelledby="dialog-title">
+    <button id="dialog-close" class="dialog-close icon-button" type="button" aria-label="Close dialog" title="Close">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <template id="event-card-template">
+    <article class="event-card">
+      <div class="event-image-wrap">
+        <img class="event-image" src="" alt="" loading="lazy">
+        <button class="save-button icon-button" type="button" aria-label="Save event" title="Save event">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>
+        </button>
+        <span class="event-category"></span>
+      </div>
+      <div class="event-body">
+        <p class="event-date"></p>
+        <h3 class="event-title"></h3>
+        <p class="event-location"></p>
+        <div class="event-footer">
+          <span class="event-price"></span>
+          <button class="details-button" type="button">View details <span aria-hidden="true">&rarr;</span></button>
+        </div>
+      </div>
+    </article>
+  </template>
+</body>
+</html>
