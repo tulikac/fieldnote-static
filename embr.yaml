@@ -4,7 +4,7 @@ autoDeploy: true
 static:
   build:
     platform: nodejs
-    platformVersion: "20"
+    platformVersion: "24"
     buildCommand: "mkdir -p dist && cp index.html styles.css app.js dist/"
     outputDirectory: dist
   spaFallback: false
