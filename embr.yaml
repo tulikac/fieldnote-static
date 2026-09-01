@@ -1,0 +1,14 @@
+version: 1
+autoDeploy: true
+
+static:
+  build:
+    platform: nodejs
+    platformVersion: "20"
+    buildCommand: "mkdir -p dist && cp index.html styles.css app.js dist/"
+    outputDirectory: dist
+  spaFallback: false
+  headers:
+    "*.html": "no-cache"
+    "*.css": "public, max-age=3600"
+    "*.js": "public, max-age=3600"
